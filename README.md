@@ -1,6 +1,7 @@
 # sub_modules
 
 Official APK scanner for the SafeHaven Store. Polls the store API for pending submissions, downloads each APK, checks its hash against a malware database, and posts the result back. Runs as a systemd service on any Linux VPS.
+[Currently only impliments VTTI]
 
 ## How it works
 
