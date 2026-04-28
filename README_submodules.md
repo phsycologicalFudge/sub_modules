@@ -23,7 +23,7 @@ The hash check logic is isolated in `check_hashes()` inside `safehaven_scanner.p
 }
 ```
 
-The rest of the scanner — polling, downloading, posting results — stays the same.
+The rest of the scanner - polling, downloading, posting results — stays the same.
 
 ## Setup
 
