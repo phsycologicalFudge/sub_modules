@@ -10,7 +10,19 @@ mkdir -p "$APP_DIR"
 cd "$APP_DIR"
 
 apt-get update
-apt-get install -y python3 python3-venv python3-pip
+apt install -y aapt
+apt-get install -y python3 python3-venv python3-pip apksigner || apt-get install -y python3 python3-venv python3-pip android-sdk-build-tools
+
+APKSIGNER_PATH="$(command -v apksigner 2>/dev/null || true)"
+
+if [ -z "$APKSIGNER_PATH" ]; then
+  APKSIGNER_PATH="$(find /usr -name apksigner 2>/dev/null | head -n 1 || true)"
+fi
+
+if [ -z "$APKSIGNER_PATH" ]; then
+  echo "apksigner not found"
+  exit 1
+fi
 
 if [ ! -d "$VENV_DIR" ]; then
   "$PYTHON_BIN" -m venv "$VENV_DIR"
@@ -22,9 +34,10 @@ pip install --upgrade pip
 pip install fastapi uvicorn httpx
 
 cat > "$APP_DIR/.env" <<EOF
-CS_API_URL="https://example.com"
-VPS_AUTH_SECRET="insertRandomNumber"
+CS_API_URL="https://api.colourswift.com"
+VPS_AUTH_SECRET="23b242n35h54232ncdsASAD23I"
 POLL_INTERVAL="30"
+APKSIGNER_BIN="$APKSIGNER_PATH"
 EOF
 
 cat > /etc/systemd/system/safehaven-scanner.service <<EOF

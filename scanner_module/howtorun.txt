@@ -1,1 +1,0 @@
-bash scanner_bootstrap.sh
